@@ -1,0 +1,31 @@
+<%@ page language="java" import="java.sql.*"%>
+<html>
+<body>
+<% 
+String appointmentid=request.getParameter("appointmentid");
+String name=request.getParameter("name");
+String pres=request.getParameter("pres");
+ResultSet rs=null;
+Connection con=null;
+Statement s=null;
+try
+{
+	 Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+	 con=DriverManager.getConnection("jdbc:odbc:doctor","root","root");
+	 s=con.createStatement();
+	 
+	 s.executeUpdate("insert into prescription values('" + appointmentid + "','" + name + "','" + pres + "')");
+	 out.println("Report Sent");
+	 response.sendRedirect("docindex.html");
+	 s.close();
+	 con.close();
+}
+catch (Exception e)
+{
+	out.println("Error is" +e);
+}
+%>
+</body>
+</html>
+
+
